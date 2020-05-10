@@ -1,3 +1,6 @@
+import json
+
+
 def json_convert(value):
     if value is None:
         return "null"
@@ -19,10 +22,12 @@ def json_convert(value):
         if not all(isinstance(key, (str, int, float, bool, type(None))) for key in value.keys()):
             raise TypeError('Key in dictionary is not serializable')
 
-        dict_keys = list(map(str, value.keys()))
-        dict_values = list(value.values())
-        string_result = ", ".join(f"{json_convert(key)}: {json_convert(dict_value)}"
-                                   for key, dict_value in zip(dict_keys, dict_values))
+        for key in value.keys():
+            if isinstance(key, (int, float)):
+                value[str(key)] = value.pop(key)
+
+        string_result = ", ".join(f"{json_convert(key)}: {json_convert(value)}"
+                                for key, value in value.items())
 
         return "{" + string_result + "}"
 

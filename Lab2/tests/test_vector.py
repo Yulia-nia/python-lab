@@ -34,9 +34,6 @@ class TestVector(unittest.TestCase):
         vector = Vector(2, 5, -10, 5)
         self.assertEqual(vector[2], -10)
 
-    def test_not_function(self):
-        self.assertEqual(Vector(1, 2, 3) * Vector(2, 3), 'Different dimensions!')
-
 
 if __name__ == '__main__':
     unittest.main()
